@@ -1,0 +1,163 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+
+<style type="text/css">
+body{
+	font:15px/1.5 Arial, Helvetica,sans-serif;
+	text-align: center;
+	background-color: #282a33;
+    color: #282a33;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+}
+
+.main{
+	height:80%;
+	width:80%;
+	border-radius: 20px;
+	display: flex;
+	background-color: rgba(255,255,255,0.1);
+}
+.sub-container{
+	width: 50%;
+	height:100%;
+}
+.left{
+	border-radius: 20px 0 0 20px;
+	background-color: rgba(255,255,255,0.9);
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+.container{
+	width:100% ;
+}
+.form-control, .form-control:hover, .form-control:focus{
+	outline: none;
+	border: none;
+	box-shadow: none;
+	border-radius: 0px;
+	background-color: transparent;
+	border-bottom: 2px solid #282a33;
+}
+img{
+	height:100%;
+	width:100%;
+}
+
+		h2{
+			font-weight: bold;
+			margin-bottom: 70px;
+		}
+		.card-header{
+			font-weight: bold;
+		}
+		.btn, .btn:hover{
+			border-radius: 60px;
+			color:#fff;
+			font-weight: bold;
+		}
+		.submit{
+			background-color: #ecb13d;
+		}
+		.submit:hover{
+			background-color: #cf9217;
+		}
+		.clear{
+			background-color: #656d84;
+		}
+		.clear:hover{
+			background-color: #4a4f5f;
+		}
+		.reset{
+			background-color: #ea5476;
+		}
+		.reset:hover{
+			background-color: #dd244f;
+		}
+		</style>
+<body>
+<div class="main">
+<div class="sub-container left">
+<div class="container">
+	<h2>Twitter Sentiment Analysis</h2>
+</div>
+
+<div class="container">
+	<form method="POST" action="{{ url_for('analyse')}}" id="myForm">
+	<label>Enter the Hashtag below</label>
+    <input type="text" class="form-control input-text" placeholder="hashtag without # here" name="rawtext"/><br/>
+    <input type="submit" value="Submit" class="btn submit">
+    <input type="button" onclick="myFunction()" value="Clear" class="btn clear">
+    <a href="{{ url_for('index')}}" type="button" class="btn reset"> Reset</a>
+	</form>
+</div>
+<br/>
+<hr/>
+<div class="container">
+	<div class="card">
+  <div class="card-header">
+    <p style="font-size: medium;"><u>Analysis Result</u></p>
+  </div>
+  <div class="card-body">
+  <div class="card-footer">
+  <table class="table" >
+  <thead>
+    <tr>
+      <th scope="col" class="text-center">Searched Text</th>
+      <th scope="col" class="text-center">Positive</th>
+      <th scope="col" class="text-center">Negative</th>
+      <th scope="col" class="text-center">Neutral</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+	  <td class="text-center">{{search_item}}</td>
+	  <td class="text-center">{{positive}}</td>
+	  <td class="text-center">{{negative}}</td>
+	  <td class="text-center">{{neutral}}</td>
+    </tr>
+</tbody></table>
+
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+<div class="sub-container">
+	<img src="{{url_for('static', filename='img.png')}}" alt="">
+	</div>
+</div>
+
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+<!-- Scripts starts here -->
+{% block scripts %}
+
+{{ super() }}
+
+<script>
+function myFunction() {
+    document.getElementById("myForm").reset();
+}
+</script>
+<!-- Prevent it from being overwritten -->
+
+{% endblock %}
